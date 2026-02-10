@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shubham Oza | Quantitative Finance & FinTech</title>
+  <meta name="description" content="Shubham Oza – Quantitative Research, Financial Technology & Analytics. Portfolio analytics, risk, derivatives, and institutional investment reporting." />
+  <meta property="og:title" content="Shubham Oza | Quantitative Finance & FinTech" />
+  <meta property="og:description" content="Quantitative finance + fintech portfolio. Experience across multi-asset portfolios, derivatives, private equity, and data validation." />
+  <meta name="theme-color" content="#060B14" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#060B14;
+      --panel:rgba(255,255,255,.04);
+      --panel2:rgba(255,255,255,.06);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.65);
+      --line:rgba(255,255,255,.10);
+      --accent:#33D6A6;      /* finance green */
+      --accent2:#52A6FF;     /* market blue */
+      --warn:#FFB020;
+      --good:#33D6A6;
+      --bad:#FF6B6B;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:
+        radial-gradient(900px 420px at 20% 10%, rgba(82,166,255,.18), transparent 60%),
+        radial-gradient(820px 420px at 80% 18%, rgba(51,214,166,.16), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.03), transparent 40%),
+        var(--bg);
+      color:var(--text);
+    }
+
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .container{width:min(1120px,92vw);margin:auto}
+
+    /* Top nav */
+    header{
+      position:sticky;top:0;z-index:30;
+      backdrop-filter:blur(12px);
+      background:rgba(6,11,20,.68);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:14px 0;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand-mark{
+      width:34px;height:34px;display:grid;place-items:center;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:linear-gradient(135deg, rgba(51,214,166,.18), rgba(82,166,255,.16));
+      font-weight:800;
+    }
+    .brand-name{font-weight:800;letter-spacing:.18em;font-size:12px}
+
+    .links{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:flex-end}
+    .links a{font-size:13px;color:var(--muted)}
+    .links a:hover{color:var(--text);text-decoration:none}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:10px 14px;border-radius:12px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      font-size:13px;font-weight:700;
+      text-decoration:none !important;
+      transition:filter .12s ease, transform .12s ease;
+    }
+    .btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+    .btn.primary{background:linear-gradient(135deg, rgba(51,214,166,.22), rgba(82,166,255,.18));border-color:rgba(51,214,166,.35)}
+    .btn.outline{background:transparent}
+
+    /* Sections */
+    section{padding:52px 0}
+    h1{font-size:clamp(32px,4.2vw,56px);line-height:1.06;margin:0 0 14px}
+    h2{margin:0 0 14px;font-size:22px;letter-spacing:.01em}
+    h3{margin:0}
+
+    .gradient{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--muted);max-width:72ch;line-height:1.65}
+    .muted{color:var(--muted)}
+
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:start;padding-top:42px}
+    @media(max-width:960px){.hero{grid-template-columns:1fr}}
+
+    .badge{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      font-size:12px;color:var(--muted);
+    }
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--accent);box-shadow:0 0 18px rgba(51,214,166,.55)}
+
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+
+    .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .meta span{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);padding:8px 10px;border-radius:999px;font-size:12px;color:rgba(255,255,255,.78)}
+
+    .card{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);padding:18px}
+    .card + .card{margin-top:14px}
+
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media(max-width:960px){.split{grid-template-columns:1fr}}
+
+    .stat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .stat .box{border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:12px;background:rgba(255,255,255,.02)}
+    .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+    .v{font-weight:800;font-size:18px;margin-top:6px}
+
+    .mini{
+      margin-top:14px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      background:rgba(255,255,255,.02);
+      padding:12px;
+    }
+    .mini-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .mini-title span{font-size:12px;color:rgba(255,255,255,.70)}
+
+    canvas{width:100%;height:96px;display:block}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:1020px){.grid{grid-template-columns:1fr}}
+
+    .proj{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      padding:16px;
+      transition:transform .12s ease, filter .12s ease;
+    }
+    .proj:hover{transform:translateY(-2px);filter:brightness(1.08);text-decoration:none}
+    .proj-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+    .tag{border:1px solid rgba(82,166,255,.24);background:rgba(82,166,255,.08);padding:6px 10px;border-radius:999px;font-size:12px;color:rgba(255,255,255,.80);white-space:nowrap}
+
+    ul{margin:10px 0 0 18px}
+    li{margin:8px 0;line-height:1.55;color:rgba(255,255,255,.86)}
+
+    .pillrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .pill{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);padding:8px 12px;border-radius:999px;font-size:12px;color:rgba(255,255,255,.78)}
+
+    .callout{
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(135deg, rgba(51,214,166,.10), rgba(82,166,255,.08));
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .footer{border-top:1px solid rgba(255,255,255,.08);padding:26px 0 44px;color:var(--muted)}
+    .tiny{font-size:12px;color:rgba(255,255,255,.60);line-height:1.6}
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">∿</div>
+      <div>
+        <div class="brand-name">SHUBHAM OZA</div>
+        <div class="tiny" style="margin-top:4px">Quant • Risk • FinTech</div>
+      </div>
+    </div>
+
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#workauth">Work Auth</a>
+      <a href="#contact" class="btn outline">Contact</a>
+      <a class="btn primary" href="Shubham_Oza_Resume.pdf" download>Download Resume</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div>
+      <div class="badge"><span class="dot"></span> MS Financial Technology & Analytics (UT Dallas) • Seeking Summer 2026</div>
+      <h1>Quantitative Finance<br><span class="gradient">Analytics & FinTech</span></h1>
+      <p class="lead">
+        Data-driven quantitative researcher and MS Financial Technology & Analytics student at UT Dallas. Experienced in
+        portfolio analytics, derivatives, risk metrics, and institutional investment reporting—turning complex data into
+        investable insights and production-grade validation frameworks.
+      </p>
+
+      <div class="cta">
+        <a class="btn primary" href="#projects">View Projects</a>
+        <a class="btn" href="#contact">Get in Touch</a>
+        <a class="btn outline" href="https://www.linkedin.com/in/shubhamozza/" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+
+      <div class="meta" aria-label="quick facts">
+        <span>Dallas, TX (Open to USA)</span>
+        <span><a href="mailto:Shubham.oza@utdallas.edu">Shubham.oza@utdallas.edu</a></span>
+        <span>Python • SQL • Power BI</span>
+        <span>CFA Level I (In Progress)</span>
+      </div>
+
+      <div class="callout" style="margin-top:18px">
+        <div class="k">Focus Areas</div>
+        <div class="pillrow">
+          <div class="pill">Quant Research & Signal Testing</div>
+          <div class="pill">Portfolio Analytics & Reporting</div>
+          <div class="pill">Derivatives & Collateral (ISDA)</div>
+          <div class="pill">Data Quality, ETL & Reconciliation</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="k">Snapshot</div>
+      <div class="stat">
+        <div class="box"><div class="k">Experience</div><div class="v">4+ Years</div><div class="tiny">Fintech + capital markets ops</div></div>
+        <div class="box"><div class="k">AUM Analyzed</div><div class="v">$1.2B+</div><div class="tiny">Multi-asset institutional portfolios</div></div>
+        <div class="box"><div class="k">Core Stack</div><div class="v">Python / SQL</div><div class="tiny">Pandas, NumPy, validation frameworks</div></div>
+        <div class="box"><div class="k">Risk Metrics</div><div class="v">VaR, Sharpe</div><div class="tiny">Plus PE metrics: DPI/RVPI/TVPI</div></div>
+      </div>
+
+      <div class="mini">
+        <div class="mini-title"><span class="k">Market Sparkline</span><span class="muted">(demo visuals)</span></div>
+        <canvas id="sparkline" width="600" height="140" aria-label="sparkline chart"></canvas>
+        <div class="tiny">Tip: Replace the demo series with your own backtest equity curve when ready.</div>
+      </div>
+
+      <div class="mini">
+        <div class="mini-title"><span class="k">Drawdown</span><span class="muted">(demo visuals)</span></div>
+        <canvas id="drawdown" width="600" height="140" aria-label="drawdown chart"></canvas>
+        <div class="tiny">This layout is recruiter-friendly: one glance shows you think in risk terms.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>About</h2>
+    <div class="split">
+      <div class="card">
+        <p class="lead">
+          I specialize in transforming messy, heterogeneous financial datasets into actionable portfolio intelligence.
+          My experience spans multi-asset reconciliation, derivatives exposure analytics, private equity reporting,
+          and building SQL-driven validation frameworks that catch issues before they hit reporting.
+        </p>
+        <div class="pillrow">
+          <div class="pill">Time-series analysis</div>
+          <div class="pill">Anomaly detection</div>
+          <div class="pill">Performance attribution</div>
+          <div class="pill">Institutional reporting</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="k">Education</div>
+        <ul>
+          <li><strong>UT Dallas</strong> — MS, Financial Technology & Analytics (Expected May 2027)</li>
+          <li><strong>North Maharashtra University</strong> — MBA Finance (Apr 2020)</li>
+          <li><strong>North Maharashtra University</strong> — BCom Accounting & Finance (Apr 2018)</li>
+        </ul>
+        <div class="k" style="margin-top:14px">Certifications</div>
+        <ul>
+          <li>Core Financial Modelling — Breaking Into Wall Street</li>
+          <li>Python Data Fundamentals — DataCamp</li>
+          <li>The Complete Financial Analysis Course 2025 — Udemy</li>
+          <li>CFA Level I — In Progress</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <h2>Experience</h2>
+
+    <div class="card">
+      <div class="proj-top">
+        <div>
+          <h3>Landytech — Associate, Financial Data (Client Delivery)</h3>
+          <div class="muted">Jun 2023 – Jul 2025 • FinTech (Investment Reporting)</div>
+        </div>
+        <div class="tag">FinTech</div>
+      </div>
+      <ul>
+        <li>Led reconciliation and validation of custodian-sourced multi-asset portfolios exceeding <strong>$1.2B+ AUM</strong> across <strong>15+ institutional clients</strong> (family offices, asset managers, private equity).</li>
+        <li>Monitored portfolio performance and risk using <strong>MTD/YTD returns</strong>, <strong>Sharpe/Sortino</strong>, liquidity metrics, and derivatives risk metrics (including VaR / Barra-type risk views).</li>
+        <li>Designed a <strong>SQL-driven validation framework</strong> to detect missing trades, pricing errors, and ETL anomalies—resolving <strong>95% of pipeline issues</strong> pre-reconciliation.</li>
+        <li>Streamlined custodian data ingestion with PMs and engineering, reducing onboarding timelines by <strong>20%</strong> and reconciliation delays by <strong>30%</strong>.</li>
+        <li>Managed private equity/co-investment data lifecycle (commitments, capital calls, distributions) for <strong>$300M+</strong> AUM and tracked <strong>DPI/RVPI/TVPI</strong> performance.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="proj-top">
+        <div>
+          <h3>Capgemini — Senior Analyst, Capital Markets</h3>
+          <div class="muted">Apr 2022 – Apr 2023 • OTC Derivatives / Collateral</div>
+        </div>
+        <div class="tag">Derivatives</div>
+      </div>
+      <ul>
+        <li>Optimized margin account operations and collateral management for OTC derivatives portfolios exceeding <strong>$800M AUM</strong>.</li>
+        <li>Reviewed tri-party and third-party collateral frameworks impacting <strong>50+ margin accounts</strong>, ensuring alignment with <strong>ISDA</strong> agreements.</li>
+        <li>Built analytical dashboards tracking collateral utilization and margin efficiency, contributing to <strong>15%</strong> faster turnaround times and <strong>20%</strong> improved processing efficiency.</li>
+        <li>Collected requirements from <strong>25+ clients</strong> and translated feedback into process improvements that elevated risk mitigation.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="proj-top">
+        <div>
+          <h3>IBM — Analyst, Quality Control & Risk/Compliance</h3>
+          <div class="muted">Apr 2021 – Apr 2022 • Financial Crime / Risk Controls</div>
+        </div>
+        <div class="tag">Risk</div>
+      </div>
+      <ul>
+        <li>Optimized financial risk workflows for a UK-based investment bank by analyzing business operations and financial statements and escalating suspicious activity.</li>
+        <li>Improved accuracy of risk case outputs, reducing potential error outcomes by <strong>95%</strong> through systematic QC and issue resolution.</li>
+        <li>Designed audit trails and validation checks that reduced false positives by <strong>30%</strong>, strengthening internal controls and compliance reporting.</li>
+        <li>Conducted CDD/EDD reviews for high-risk clients and supported compliance reporting initiatives.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <p class="lead">Below are project templates aligned to your resume. Swap in GitHub links and add results (Sharpe, hit rate, drawdown) when available.</p>
+
+    <div class="grid">
+      <a class="proj" href="#" target="_blank" rel="noreferrer">
+        <div class="proj-top">
+          <div><strong>Portfolio Risk Dashboard</strong><div class="muted">Volatility regimes • Sharpe/Sortino • Drawdown</div></div>
+          <div class="tag">Python</div>
+        </div>
+        <p class="muted">Daily risk summary for a multi-asset portfolio: rolling volatility, risk-adjusted returns, and concentration analytics in a BI-ready format.</p>
+        <div class="pillrow"><div class="pill">Pandas</div><div class="pill">NumPy</div><div class="pill">Power BI</div></div>
+      </a>
+
+      <a class="proj" href="#" target="_blank" rel="noreferrer">
+        <div class="proj-top">
+          <div><strong>Private Equity Performance Tracker</strong><div class="muted">Capital calls • Distributions • DPI/RVPI/TVPI</div></div>
+          <div class="tag">Modeling</div>
+        </div>
+        <p class="muted">End-to-end PE cashflow engine with validation checks for NAV/FX mismatches and automated metric rollups for LP-style reporting.</p>
+        <div class="pillrow"><div class="pill">Excel</div><div class="pill">SQL</div><div class="pill">Validation</div></div>
+      </a>
+
+      <a class="proj" href="#" target="_blank" rel="noreferrer">
+        <div class="proj-top">
+          <div><strong>Quant Data Validation Engine</strong><div class="muted">Missing trades • Pricing errors • FX mismatches</div></div>
+          <div class="tag">SQL</div>
+        </div>
+        <p class="muted">Rules-based + anomaly checks pipeline to detect ETL and portfolio data quality issues before downstream reporting and reconciliation.</p>
+        <div class="pillrow"><div class="pill">ETL</div><div class="pill">SQL</div><div class="pill">Anomaly detection</div></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="k">Quant & Finance</div>
+        <ul>
+          <li>Portfolio analytics, performance attribution, time-series analysis</li>
+          <li>Risk metrics: VaR concepts, Sharpe/Sortino, liquidity metrics</li>
+          <li>Asset classes: equities, fixed income, derivatives (OTC swaps, futures), private equity</li>
+          <li>Processes: investment reporting, collateral management, CDD/EDD, ISDA compliance</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="k">Data & Engineering</div>
+        <ul>
+          <li>Python: Pandas, NumPy (feature engineering, analytics pipelines)</li>
+          <li>SQL: advanced querying, validation frameworks, ETL support</li>
+          <li>ML (foundational): TensorFlow, PyTorch</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="k">BI & Productivity</div>
+        <ul>
+          <li>Power BI / Tableau: interactive market & risk dashboards</li>
+          <li>Advanced Excel: pivoting, reporting, reconciliation workflows</li>
+          <li>Stakeholder communication: PMs, engineering, client delivery</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK AUTH -->
+  <section id="workauth">
+    <h2>Work Authorization</h2>
+    <div class="card">
+      <p class="lead">Open to internships across the United States. Visa sponsorship may be required for long-term employment (H‑1B).</p>
+      <div class="tiny">If you prefer not to mention sponsorship on your public site, delete this section and keep it for applications only.</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="split">
+      <div class="card">
+        <p class="lead">Best way to reach me is email. I’m happy to connect about quantitative finance, portfolio analytics, risk, or fintech roles.</p>
+        <div class="cta">
+          <a class="btn primary" href="mailto:Shubham.oza@utdallas.edu">Email Me</a>
+          <a class="btn" href="https://www.linkedin.com/in/shubhamozza/" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+        <div class="tiny" style="margin-top:12px">Optional: add GitHub link when you publish projects.</div>
+      </div>
+      <div class="card">
+        <div class="k">Deploy-ready checklist</div>
+        <ul>
+          <li>Place your resume PDF next to this HTML file and name it <strong>Shubham_Oza_Resume.pdf</strong>.</li>
+          <li>Update the <strong>Projects</strong> links to your GitHub / demo pages.</li>
+          <li>Deploy via GitHub Pages / Netlify / Vercel.</li>
+        </ul>
+        <div class="tiny">Everything is in one file (HTML + CSS + JS) for easy deployment.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">© <span id="year"></span> Shubham Oza</div>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Demo series for visuals (replace with backtest equity curve later)
+  // Generates a smooth-ish series with noise so the charts look professional out of the box.
+  function makeSeries(n){
+    const y=[];
+    let v=100;
+    for(let i=0;i<n;i++){
+      const drift = 0.08;
+      const noise = (Math.random()-0.5)*1.8;
+      const shock = (Math.random()<0.06)? (Math.random()-0.5)*8 : 0;
+      v = Math.max(70, v + drift + noise + shock);
+      y.push(v);
+    }
+    return y;
+  }
+
+  function maxDrawdown(series){
+    let peak = series[0];
+    return series.map(v=>{
+      peak = Math.max(peak, v);
+      return (v-peak)/peak; // negative values
+    });
+  }
+
+  function drawLineChart(canvasId, series, opts){
+    const c = document.getElementById(canvasId);
+    if(!c) return;
+    const ctx = c.getContext('2d');
+
+    // crisp on high DPI
+    const dpr = window.devicePixelRatio || 1;
+    const cssW = c.clientWidth || 600;
+    const cssH = c.clientHeight || 96;
+    c.width = Math.floor(cssW * dpr);
+    c.height = Math.floor(cssH * dpr);
+    ctx.scale(dpr, dpr);
+
+    const w = cssW, h = cssH;
+
+    // padding
+    const pad = 8;
+    const xs = series.length;
+
+    const min = Math.min(...series);
+    const max = Math.max(...series);
+    const range = (max-min) || 1;
+
+    // background grid
+    ctx.clearRect(0,0,w,h);
+    ctx.globalAlpha = 1;
+    ctx.lineWidth = 1;
+
+    ctx.strokeStyle = 'rgba(255,255,255,.08)';
+    for(let i=1;i<=4;i++){
+      const y = pad + (h-2*pad) * (i/5);
+      ctx.beginPath();
+      ctx.moveTo(pad, y);
+      ctx.lineTo(w-pad, y);
+      ctx.stroke();
+    }
+
+    // line
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = opts.stroke;
+    ctx.beginPath();
+
+    for(let i=0;i<xs;i++){
+      const x = pad + (w-2*pad) * (i/(xs-1));
+      const y = pad + (h-2*pad) * (1 - (series[i]-min)/range);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+
+    // subtle fill
+    ctx.globalAlpha = 0.25;
+    ctx.fillStyle = opts.fill;
+    ctx.lineTo(w-pad, h-pad);
+    ctx.lineTo(pad, h-pad);
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  const eq = makeSeries(64);
+  const dd = maxDrawdown(eq).map(v => v*100); // percent
+
+  drawLineChart('sparkline', eq, {
+    stroke: 'rgba(51,214,166,.95)',
+    fill: 'rgba(51,214,166,.25)'
+  });
+
+  drawLineChart('drawdown', dd, {
+    stroke: 'rgba(255,107,107,.95)',
+    fill: 'rgba(255,107,107,.20)'
+  });
+
+  // Make charts responsive on resize
+  window.addEventListener('resize', () => {
+    drawLineChart('sparkline', eq, { stroke:'rgba(51,214,166,.95)', fill:'rgba(51,214,166,.25)' });
+    drawLineChart('drawdown', dd, { stroke:'rgba(255,107,107,.95)', fill:'rgba(255,107,107,.20)' });
+  });
+</script>
+</body>
+</html>
