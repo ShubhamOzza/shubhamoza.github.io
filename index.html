@@ -42,14 +42,14 @@
     .btn.accent { background: var(--text); color: var(--bg); border-color: var(--text); }
     .btn.accent:hover { opacity: .88; }
 
-    section { padding: 64px 0; }
+    section { padding: 48px 0; }
     section + section { border-top: 1px solid var(--border); }
     .section-label { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-    h1 { font-size: clamp(36px, 4.5vw, 58px); font-weight: 700; line-height: 1.06; letter-spacing: -.03em; }
+    h1 { font-size: clamp(26px, 3vw, 40px); font-weight: 700; line-height: 1.12; letter-spacing: -.02em; }
     h2 { font-size: 26px; font-weight: 600; letter-spacing: -.02em; }
     h3 { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
 
-    .hero-wrap { padding: 52px 0 64px; display: grid; grid-template-columns: 1fr 360px; gap: 48px; align-items: start; }
+    .hero-wrap { padding: 36px 0 48px; display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
     @media (max-width: 880px) { .hero-wrap { grid-template-columns: 1fr; } }
 
     .status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid var(--border2); border-radius: 999px; font-size: 12.5px; color: var(--muted); background: var(--surface); margin-bottom: 20px; }
@@ -110,7 +110,7 @@
     .exp-body { padding: 14px 22px 18px; }
     .exp-body ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .exp-body li { font-size: 13.5px; color: var(--muted); padding-left: 14px; position: relative; line-height: 1.65; }
-    .exp-body li::before { content: '–'; position: absolute; left: 0; color: var(--border2); }
+    .exp-body li::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-size: 16px; line-height: 1.1; top: 1px; }
     .exp-body li strong { color: var(--text); font-weight: 500; }
     .tag { font-family: 'Geist Mono', monospace; font-size: 11px; padding: 3px 9px; border: 1px solid var(--border2); background: var(--surface2); color: var(--muted); border-radius: 999px; white-space: nowrap; }
 
@@ -136,7 +136,7 @@
     .skill-cat { font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
     .skill-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
     .skill-list li { font-size: 13px; color: var(--muted); display: flex; align-items: baseline; gap: 8px; }
-    .skill-list li::before { content: '—'; color: var(--border2); font-size: 10px; flex-shrink: 0; }
+    .skill-list li::before { content: '·'; color: var(--accent); font-size: 14px; flex-shrink: 0; }
 
     .auth-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-top: 32px; }
     @media (max-width: 700px) { .auth-grid { grid-template-columns: 1fr; } }
@@ -195,8 +195,9 @@
     <div class="hero-wrap">
       <div>
         <div class="status-pill"><span class="pulse"></span>MS Financial Technology & Analytics — UT Dallas · Summer 2026</div>
-        <h1>Quantitative<br>Finance &<br>FinTech</h1>
-        <p class="hero-sub">Four years building financial data infrastructure for institutional clients — from $1.2B+ AUM portfolio analytics at a London fintech to OTC derivatives exposure monitoring at a US investment bank. Now at UT Dallas studying the math behind the decisions.</p>
+        <div style="font-size:32px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px;line-height:1.1">Shubham Oza</div>
+        <h1 style="color:var(--muted);font-weight:600">Quantitative Finance<br>& FinTech</h1>
+        <p class="hero-sub">Four years building financial data infrastructure for institutional clients, from portfolio analytics on $1.2B+ AUM at a London fintech to OTC derivatives exposure monitoring at a US investment bank. Now at UT Dallas studying the math behind the decisions.</p>
         <div class="cta-row">
           <a href="#projects" class="btn accent">View Projects</a>
           <a href="#experience" class="btn">Experience</a>
@@ -212,24 +213,32 @@
 
       <div class="panel">
         <div class="panel-header">
-          <span class="panel-title">Portfolio Snapshot</span>
-          <span class="panel-badge">Simulated Backtest</span>
+          <span class="panel-title">Profile at a Glance</span>
+          <span class="panel-badge">Summer 2026</span>
         </div>
         <div class="stat-grid">
-          <div class="stat-cell"><div class="stat-label">Experience</div><div class="stat-value">4+</div><div class="stat-desc">Years in capital markets & fintech</div></div>
-          <div class="stat-cell"><div class="stat-label">AUM Analytics</div><div class="stat-value" style="color:var(--accent)">$1.2B+</div><div class="stat-desc">Multi-asset institutional portfolios</div></div>
-          <div class="stat-cell"><div class="stat-label">Core Stack</div><div class="stat-value" style="font-size:17px">Py / SQL</div><div class="stat-desc">Pandas, NumPy, scikit-learn</div></div>
+          <div class="stat-cell"><div class="stat-label">Experience</div><div class="stat-value">4+</div><div class="stat-desc">Years across capital markets & fintech</div></div>
+          <div class="stat-cell"><div class="stat-label">AUM Managed</div><div class="stat-value" style="color:var(--accent)">$1.2B+</div><div class="stat-desc">Institutional portfolios, Landytech</div></div>
+          <div class="stat-cell"><div class="stat-label">Core Stack</div><div class="stat-value" style="font-size:17px">Py / SQL</div><div class="stat-desc">Pandas, NumPy, statsmodels</div></div>
           <div class="stat-cell"><div class="stat-label">GPA — Sem 1</div><div class="stat-value" style="color:var(--accent2)">3.3</div><div class="stat-desc">MS FinTech & Analytics, UTD</div></div>
         </div>
-        <div class="chart-wrap">
-          <div class="chart-label"><span>Multi-Factor Alpha — Equity Curve</span><span id="sharpe-label" style="color:var(--accent)"></span></div>
-          <canvas id="sparkline" height="80"></canvas>
+        <div style="padding:16px;border-bottom:1px solid var(--border)">
+          <div class="stat-label" style="margin-bottom:10px">Companies</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="font-weight:500">Landytech</span><span style="color:var(--muted)">Portfolio Analytics · London FinTech</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="font-weight:500">Capgemini</span><span style="color:var(--muted)">OTC Derivatives · US Investment Bank</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="font-weight:500">IBM</span><span style="color:var(--muted)">Risk & Compliance · UK Investment Bank</span></div>
+          </div>
         </div>
-        <div class="chart-wrap" style="border-bottom:none">
-          <div class="chart-label"><span>Drawdown (%)</span><span id="maxdd-label" style="color:#C0392B"></span></div>
-          <canvas id="drawdown" height="50"></canvas>
+        <div style="padding:16px">
+          <div class="stat-label" style="margin-bottom:10px">Seeking</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="panel-badge">Quant Research Intern</span>
+            <span style="font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid var(--border2);background:var(--surface2);color:var(--muted)">Risk Analytics</span>
+            <span style="font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid var(--border2);background:var(--surface2);color:var(--muted)">Derivatives</span>
+            <span style="font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid var(--border2);background:var(--surface2);color:var(--muted)">Portfolio Analytics</span>
+          </div>
         </div>
-        <div class="panel-footer">Simulated equity curve of the multi-factor alpha model (value + momentum + quality signals on S&P 500). Sharpe and max drawdown computed from daily returns. Replace with live results when published.</div>
       </div>
     </div>
   </section>
@@ -240,10 +249,10 @@
     <div class="about-grid">
       <div class="card">
         <div class="about-text">
-          <p>I'm a finance professional with 4+ years of experience across investment banking operations, capital markets, risk management, and data analytics. My journey has been driven by curiosity, a strong work ethic, and a passion for combining finance with technology to drive meaningful outcomes.</p>
-          <p>I hold a BCom (2018) and an MBA in Finance (2020), with a foundation built across trade life cycles, derivatives, corporate actions, and financial systems. I'm currently pursuing an MS in Financial Technology and Analytics at UT Dallas, deepening my knowledge in quantitative finance, algorithmic trading, and machine learning applications in finance.</p>
-          <p>My career has spanned three impactful roles: at IBM I worked with a UK-based investment bank on financial risk monitoring and regulatory compliance; at Capgemini I focused on collateral management for OTC derivatives, streamlining margin processes through data-backed insights; and at Landytech I've grown from Data Analyst to Associate — delivering accurate portfolio and performance data across asset classes including equities, fixed income, hedge funds, private equity, and real estate.</p>
-          <p>I'm particularly interested in hedge funds, alternative investments, and leveraging technology to transform investment operations.</p>
+          <p>I started my career in financial operations and slowly worked my way toward the quantitative side of things. Four years across IBM, Capgemini, and Landytech gave me a ground-level view of how institutional finance actually runs — the messy parts, the data problems, the gap between what models assume and what systems deliver.</p>
+          <p>Most of that time was spent on the infrastructure behind investment decisions: reconciling portfolios, validating OTC derivative exposures, building ETL pipelines, and getting performance numbers right for clients who manage serious capital. At Landytech I was responsible for analytics across $1.2B+ AUM spanning equities, fixed income, hedge funds, and private equity.</p>
+          <p>I came to UT Dallas because I wanted to understand the math that sits behind those decisions. The MS in Financial Technology and Analytics is letting me build that foundation properly — options pricing, time-series modeling, machine learning in finance, and the quantitative methods I was applying intuitively in practice.</p>
+          <p>Right now I'm focused on quant research and derivatives analytics. The projects on this site reflect where my thinking is going.</p>
         </div>
         <div class="pill-row">
           <span class="pill">Portfolio Analytics</span>
@@ -256,7 +265,20 @@
       <div>
         <div class="card" style="margin-bottom:12px">
           <div class="label" style="margin-bottom:14px">Education</div>
-          <div class="edu-item"><div class="edu-school">UT Dallas — Naveen Jindal</div><div class="edu-degree">MS, Financial Technology & Analytics</div><div class="edu-year">Expected May 2027 · GPA 3.3</div></div>
+          <div class="edu-item">
+            <div class="edu-school">UT Dallas — Naveen Jindal</div>
+            <div class="edu-degree">MS, Financial Technology & Analytics</div>
+            <div class="edu-year">Expected May 2027 · GPA 3.3</div>
+            <div style="margin-top:8px;font-size:12px;color:var(--muted)">
+              <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:5px">Semester 1 Coursework</div>
+              <div style="display:flex;flex-wrap:wrap;gap:5px">
+                <span style="font-size:11px;padding:2px 8px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--muted)">Fundamentals of Machine Learning</span>
+                <span style="font-size:11px;padding:2px 8px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--muted)">Financial Info & Analytics</span>
+                <span style="font-size:11px;padding:2px 8px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--muted)">Fundamentals of Finance</span>
+                <span style="font-size:11px;padding:2px 8px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--muted)">Financial Modelling / FinTech Markets</span>
+              </div>
+            </div>
+          </div>
           <div class="edu-item"><div class="edu-school">North Maharashtra University</div><div class="edu-degree">MBA, Finance</div><div class="edu-year">March 2020</div></div>
           <div class="edu-item"><div class="edu-school">North Maharashtra University</div><div class="edu-degree">BCom, Accounting & Finance</div><div class="edu-year">March 2018</div></div>
         </div>
@@ -393,7 +415,7 @@
         </ul>
         <div class="proj-footer">
           <div class="proj-stack"><span class="mono-tag">Python</span><span class="mono-tag">statsmodels</span><span class="mono-tag">scipy</span><span class="mono-tag">yfinance</span></div>
-          <a href="https://github.com/shubhamozza/pairs-trading" target="_blank" class="proj-link">GitHub ↗</a>
+          <a href="https://github.com/ShubhamOzza/stat-arb-etf-pairs" target="_blank" class="proj-link">GitHub ↗</a>
         </div>
       </div>
       <div class="proj-card fade-in">
@@ -406,7 +428,7 @@
         </ul>
         <div class="proj-footer">
           <div class="proj-stack"><span class="mono-tag">Python</span><span class="mono-tag">scipy</span><span class="mono-tag">numpy</span><span class="mono-tag">matplotlib</span></div>
-          <a href="https://github.com/shubhamozza/options-vol-surface" target="_blank" class="proj-link">GitHub ↗</a>
+          <a href="https://github.com/ShubhamOzza/options-vol-surface" target="_blank" class="proj-link">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -465,13 +487,13 @@
         <div class="contact-title">Let's Talk</div>
         <div class="contact-desc">Happy to connect about quantitative research, portfolio analytics, internship opportunities, or anything fintech. Response time is usually within a day.</div>
         <div class="cta-row">
-          <a href="mailto:Shubham.oza@utdallas.edu" class="btn accent">Send Email</a>
+          <a href="/cdn-cgi/l/email-protection#194a716c7b71787437766378596c6d7d787575786a377c7d6c" class="btn accent">Send Email</a>
           <a href="https://www.linkedin.com/in/shubhamozza/" target="_blank" rel="noreferrer" class="btn">LinkedIn ↗</a>
         </div>
       </div>
       <div class="card">
         <div class="contact-title">Links</div>
-        <div class="contact-row"><span class="contact-icon">@</span><a href="mailto:Shubham.oza@utdallas.edu" class="contact-link">Shubham.oza@utdallas.edu</a></div>
+        <div class="contact-row"><span class="contact-icon">@</span><a href="/cdn-cgi/l/email-protection#aefdc6dbccc6cfc380c1d4cfeedbdacacfc2c2cfdd80cbcadb" class="contact-link"><span class="__cf_email__" data-cfemail="491a213c2b21282467263328093c3d2d282525283a672c2d3c">[email&#160;protected]</span></a></div>
         <div class="contact-row"><span class="contact-icon">in</span><a href="https://www.linkedin.com/in/shubhamozza/" target="_blank" class="contact-link">/in/shubhamozza</a></div>
         <div class="contact-row"><span class="contact-icon">gh</span><a href="https://github.com/shubhamozza" target="_blank" class="contact-link">github.com/shubhamozza</a></div>
         <div class="contact-row"><span class="contact-icon">↓</span><a href="Shubham_Oza_Resume.pdf" download class="contact-link">Download Resume (PDF)</a></div>
@@ -487,7 +509,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
   function seededRng(seed) {
@@ -583,11 +605,4 @@
   renderCharts();
   window.addEventListener('resize', renderCharts);
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.06 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-</body>
-</html>
+  const observer =
