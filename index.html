@@ -872,6 +872,180 @@
         <rect x="264" y="40" width="24" height="100" fill="#2B7A50" opacity="0.85"/>
         <rect x="296" y="20" width="16" height="120" fill="#1F5C3E" opacity="0.9"/>
       </svg>`
+    },
+    {
+      tag: 'Volatility',
+      title: 'GARCH Family Volatility Forecasting & VaR Backtesting',
+      desc: 'An end-to-end volatility forecasting and VaR validation framework on fifteen years of daily equity index returns, designed the way a market risk desk would actually run it: four competing models, genuinely out-of-sample forecasts, and formal backtests.',
+      problem: 'Every normal-innovation volatility model produced too many 99% VaR exceedances in the validation run, while the Student-t specification delivered coverage statistically indistinguishable from nominal. Distributional choice is a tail-risk decision, and it should be driven by backtests, not by likelihood alone.',
+      approach: 'Fit and compared four models (RiskMetrics EWMA, GARCH(1,1) normal, GARCH(1,1) Student-t, GJR-GARCH with a leverage term) on an expanding window with quarterly refits, producing over 2,600 genuinely out-of-sample one-day-ahead forecasts per model. Evaluated with QLIKE as the primary loss function, Diebold-Mariano tests for significance, and Mincer-Zarnowitz regressions for calibration, then built and backtested 95% and 99% VaR with the Kupiec and Christoffersen tests, including regime case studies on 2018, 2020, and 2024-style spikes.',
+      architecture: [
+        'Four volatility models on one rolling out-of-sample harness: EWMA, GARCH-normal, GARCH-t, GJR-GARCH',
+        'Expanding estimation window with quarterly parameter refits, 41 refits validated for stationarity and positivity',
+        'QLIKE primary loss, MSE secondary, Diebold-Mariano pairwise significance, Mincer-Zarnowitz unbiasedness regression',
+        'Kupiec unconditional coverage and Christoffersen independence VaR backtests at 95% and 99%',
+        'Regime case studies: 2018, 2020, and 2024-style volatility spikes',
+        'Documented scipy maximum-likelihood fallback matching the arch package to within 0.05% log-likelihood'
+      ],
+      results: [
+        'Every GARCH variant beat naive volatility baselines on QLIKE by a statistically significant margin (Diebold-Mariano)',
+        'Student-t 99% VaR coverage was statistically indistinguishable from nominal; every normal-innovation model produced too many exceedances'
+      ],
+      stack: ['Python', 'arch', 'SciPy', 'pandas'],
+      link: 'https://github.com/ShubhamOzza/quant-garch-volatility-forecasting',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="40" x2="320" y2="40" stroke="rgba(20,30,20,.06)" stroke-width="1"/>
+        <line x1="0" y1="100" x2="320" y2="100" stroke="rgba(20,30,20,.06)" stroke-width="1"/>
+        <polyline points="0,120 30,118 60,116 90,112 120,60 150,30 180,50 210,90 240,108 270,114 300,116 320,117" fill="none" stroke="#2B7A50" stroke-width="2.5" stroke-linejoin="round"/>
+        <polyline points="0,124 30,122 60,120 90,118 120,100 150,70 180,80 210,100 240,112 270,116 300,118 320,119" fill="none" stroke="rgba(181,67,47,.6)" stroke-width="1.8" stroke-dasharray="3,3"/>
+        <circle cx="150" cy="30" r="3.5" fill="#2B7A50"/>
+      </svg>`
+    },
+    {
+      tag: 'Systems',
+      title: 'Event-Driven Backtesting Framework',
+      desc: 'Most backtests fail quietly. An event-driven backtesting framework for daily equities that treats correctness as a deliverable: a typed event queue connects four components behind clean interfaces, and a full validation battery runs at the end of every backtest.',
+      problem: 'Look-ahead bias, unrealistic fills, ignored constraints, and accounting bugs can make a losing strategy look like a winner, and vectorized backtests hide exactly the mechanics that would catch this.',
+      approach: 'Built a typed event queue (MarketEvent, SignalEvent, OrderEvent, FillEvent) connecting four components behind abstract interfaces: DataHandler, Strategy, Portfolio, and ExecutionHandler. Orders rest until the next bar opens so no signal can trade on the bar that created it. Two reference strategies, an SMA(50/200) crossover and a dollar-neutral pairs strategy, are each verified against an independent implementation, and a fuzz test injects hundreds of random orders to confirm every accounting invariant holds.',
+      architecture: [
+        'Typed event queue: MarketEvent, SignalEvent, OrderEvent, FillEvent behind four component interfaces',
+        'Next-bar-open fills with slippage (bps or volume-participation), commissions, position and margin limits',
+        'SMA(50/200) crossover and dollar-neutral pairs reference strategies, each matched to an independent implementation',
+        'Structural look-ahead guard that raises immediately when a strategy requests future data',
+        'Fuzz test: hundreds of random orders across three seeds, every accounting invariant holds',
+        'Tearsheet (equity, drawdown, rolling Sharpe, exposure, per-symbol attribution) computed purely from the fill log'
+      ],
+      results: [
+        'Accounting identity (equity = cash + marked positions) holds to machine precision on all 2,609 bars; equity curve rebuilt from the fill log matches to 1e-15',
+        "Doubling slippage reduces PnL by exactly the model's prediction (0.00% relative error); every pairs trade fires both legs atomically, verified directly from the fill log"
+      ],
+      stack: ['Python', 'pandas', 'NumPy', 'Matplotlib'],
+      link: 'https://github.com/ShubhamOzza/quant-event-driven-backtesting-framework',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <rect x="10" y="60" width="60" height="40" rx="3" fill="#2B7A50" opacity="0.75"/>
+        <rect x="90" y="60" width="60" height="40" rx="3" fill="#4E9973" opacity="0.65"/>
+        <rect x="170" y="60" width="60" height="40" rx="3" fill="#4E9973" opacity="0.65"/>
+        <rect x="250" y="60" width="60" height="40" rx="3" fill="#1F5C3E" opacity="0.85"/>
+        <line x1="70" y1="80" x2="90" y2="80" stroke="rgba(20,30,20,.4)" stroke-width="1.5"/>
+        <polygon points="90,80 84,76 84,84" fill="rgba(20,30,20,.4)"/>
+        <line x1="150" y1="80" x2="170" y2="80" stroke="rgba(20,30,20,.4)" stroke-width="1.5"/>
+        <polygon points="170,80 164,76 164,84" fill="rgba(20,30,20,.4)"/>
+        <line x1="230" y1="80" x2="250" y2="80" stroke="rgba(20,30,20,.4)" stroke-width="1.5"/>
+        <polygon points="250,80 244,76 244,84" fill="rgba(20,30,20,.4)"/>
+        <text x="40" y="30" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="rgba(20,30,20,.45)" text-anchor="middle">DATA</text>
+        <text x="120" y="30" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="rgba(20,30,20,.45)" text-anchor="middle">STRATEGY</text>
+        <text x="200" y="30" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="rgba(20,30,20,.45)" text-anchor="middle">PORTFOLIO</text>
+        <text x="280" y="30" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="rgba(20,30,20,.45)" text-anchor="middle">EXEC</text>
+      </svg>`
+    },
+    {
+      tag: 'Portfolio',
+      title: 'Black-Litterman Portfolio Allocation',
+      desc: 'Naive mean-variance optimization has a dirty secret: feed it raw historical returns and it becomes an error-maximization machine. A complete, unit-tested Black-Litterman allocation engine shows how professionals fix this, blending market equilibrium with explicit views.',
+      problem: 'Naive mean-variance weights swing wildly every time the estimation window moves. Bootstrap resampling in this project showed naive weights moving by 61% of the portfolio in response to pure sampling noise, versus 3% for Black-Litterman.',
+      approach: 'Reverse-engineered equilibrium expected returns from the market portfolio, blended them with explicit economic views through a Bayesian He-Litterman posterior, and solved a constrained long-only quadratic program with a 25% per-asset cap plus a tracking-error-constrained variant. Verified the model against its own theoretical limiting cases (zero-confidence views recover equilibrium exactly, infinite-confidence views satisfy the views exactly), then ran a quarterly walk-forward backtest from 2020 onward against 60/40 and equal-weight benchmarks.',
+      architecture: [
+        'Reverse optimization for equilibrium returns: pi = delta * Sigma * w_mkt',
+        'He-Litterman Bayesian posterior blending equilibrium returns with 3-5 explicit views (tau = 0.05)',
+        'Constrained long-only QP (25% per-asset cap) plus a tracking-error-constrained variant, cvxpy with a scipy SLSQP fallback',
+        'Six-test correctness suite: limiting-case identities verified to machine precision',
+        'Naive MV instability quantified via bootstrap resampling before Black-Litterman is introduced as the fix',
+        'Quarterly walk-forward backtest 2020-2025: BL vs naive MV vs 60/40 vs equal-weight, with a constraint-cost table'
+      ],
+      results: [
+        "Naive MV weights moved <strong>61%</strong> of the portfolio under pure sampling-error perturbation versus <strong>3%</strong> for Black-Litterman, and naive MV pinned three positions to the cap while BL stayed diversified across all ten assets",
+        "BL cut average turnover to roughly a sixth of naive MV's with a better Sharpe and shallower drawdown, while naive MV's raw CAGR was marginally higher in this sample, a result reported plainly rather than hidden"
+      ],
+      stack: ['Python', 'NumPy', 'SciPy', 'cvxpy'],
+      link: 'https://github.com/ShubhamOzza/quant-black-litterman-allocation',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="140" x2="320" y2="140" stroke="rgba(20,30,20,.1)" stroke-width="1"/>
+        <text x="75" y="14" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="#B5432F" text-anchor="middle">NAIVE MV</text>
+        <rect x="10" y="30" width="20" height="110" fill="#B5432F" opacity="0.75"/>
+        <rect x="34" y="120" width="20" height="20" fill="#B5432F" opacity="0.35"/>
+        <rect x="58" y="30" width="20" height="110" fill="#B5432F" opacity="0.75"/>
+        <rect x="82" y="130" width="20" height="10" fill="#B5432F" opacity="0.3"/>
+        <rect x="106" y="30" width="20" height="110" fill="#B5432F" opacity="0.75"/>
+        <line x1="150" y1="10" x2="150" y2="150" stroke="rgba(20,30,20,.1)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="235" y="14" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="#2B7A50" text-anchor="middle">BLACK-LITTERMAN</text>
+        <rect x="170" y="86" width="16" height="54" fill="#2B7A50" opacity="0.7"/>
+        <rect x="190" y="94" width="16" height="46" fill="#2B7A50" opacity="0.65"/>
+        <rect x="210" y="80" width="16" height="60" fill="#2B7A50" opacity="0.75"/>
+        <rect x="230" y="100" width="16" height="40" fill="#2B7A50" opacity="0.6"/>
+        <rect x="250" y="90" width="16" height="50" fill="#2B7A50" opacity="0.7"/>
+        <rect x="270" y="96" width="16" height="44" fill="#2B7A50" opacity="0.65"/>
+        <rect x="290" y="88" width="16" height="52" fill="#2B7A50" opacity="0.7"/>
+      </svg>`
+    },
+    {
+      tag: 'Fixed Income',
+      title: 'Yield Curve Bootstrapping & Bond Analytics',
+      desc: 'A production-style fixed income analytics engine that turns a raw panel of Treasury par yields into a fully validated zero curve and a complete bond risk toolkit, tested across the ZIRP era and the 2022-2023 hiking cycle where naive curve code breaks.',
+      problem: 'Curve construction is a bias-variance problem: exact-fitting interpolators guarantee repricing but transmit kinks, while parametric models smooth but can underfit complex days. A plain cubic spline in this project produced a genuine negative forward rate, a textbook arbitrage artifact, under a sparse-tenor stress test.',
+      approach: 'Bootstrapped zero-coupon discount factors from par yields with a fixed-point iteration that guarantees every input par bond reprices to par, interpolated with monotone-preserving PCHIP cubics, and fit Nelson-Siegel and Svensson curves daily across 20 years of data. Priced a bond ladder, computed duration, convexity, DV01, and key-rate durations, and decomposed returns into carry and roll-down across curve regimes.',
+      architecture: [
+        'Fixed-point bootstrap: every input par bond reprices to par, verified to 1e-12',
+        'Monotone-preserving PCHIP interpolation on log discount factors, compared directly against oscillating plain cubic splines',
+        'Nelson-Siegel and Svensson fits refit daily across all 5,474 business days, not just a single snapshot',
+        'Duration, convexity, DV01, and key-rate durations verified analytic-vs-bumped and summed to total duration',
+        'Monthly carry and roll-down decomposition for the 10Y across curve regimes',
+        'Eleven-point validation battery: repricing, monotonicity, Greek convergence, factor correlation, held-out-tenor cross-check'
+      ],
+      results: [
+        'Nelson-Siegel beta0 and -beta1 tracked the observed level and 10Y-2Y slope at <strong>0.97</strong> and <strong>0.95</strong> correlation across 20 years, through the ZIRP era and the 2022-2023 hiking cycle',
+        'A plain cubic spline produced a <strong>-1.63%</strong> negative forward rate under a sparse-tenor stress case; PCHIP stayed shape-preserving at 0.00%'
+      ],
+      stack: ['Python', 'NumPy', 'SciPy', 'pandas'],
+      link: 'https://github.com/ShubhamOzza/quant-yield-curve-bond-analytics',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="120" x2="320" y2="120" stroke="rgba(20,30,20,.08)" stroke-width="1"/>
+        <line x1="0" y1="80" x2="320" y2="80" stroke="rgba(20,30,20,.06)" stroke-width="1"/>
+        <line x1="0" y1="40" x2="320" y2="40" stroke="rgba(20,30,20,.06)" stroke-width="1"/>
+        <polyline points="0,120 40,95 80,78 130,64 180,54 230,46 280,40 320,36" fill="none" stroke="#2B7A50" stroke-width="2.5" stroke-linejoin="round"/>
+        <polyline points="0,60 40,55 80,58 130,66 180,74 230,80 280,84 320,86" fill="none" stroke="rgba(181,67,47,.55)" stroke-width="2" stroke-dasharray="4,3"/>
+        <circle cx="320" cy="36" r="3.5" fill="#2B7A50"/>
+        <circle cx="320" cy="86" r="3.5" fill="#B5432F"/>
+      </svg>`
+    },
+    {
+      tag: 'Options',
+      title: 'Delta-Hedging Simulation & PnL Attribution',
+      desc: 'Where does the PnL of a hedged option book actually come from? A complete simulation and attribution framework that prices European straddles, runs a self-financing discrete delta hedge, and decomposes every hedging period into theta, gamma, vega, and delta-mismatch PnL.',
+      problem: 'A delta-hedged book is a pure bet on realized versus implied variance, but that relationship is easy to state and easy to get wrong in code, especially sign conventions on theta and gamma that can silently flip the whole story.',
+      approach: 'Simulated thousands of geometric Brownian motion paths to confirm the core replication identity (hedged PnL near zero when realized vol equals implied vol), then quantified how mean PnL responds to the realized-implied variance gap and how PnL dispersion falls as hedging frequency increases. Extended to a real-data workflow replaying rolling one-month ATM straddles on five years of SPY prices, delta-hedged daily, regressing episode PnL on the variance risk premium.',
+      architecture: [
+        'Self-financing discrete delta hedge with explicit cash accounting and transaction costs',
+        'Daily PnL decomposition into theta, gamma, vega, and delta-mismatch, reconciling to the total at machine precision',
+        'Monte Carlo vol-mismatch study: realized vol at 15%/20%/25% against 20% implied',
+        'Hedging-frequency study: PnL dispersion versus rebalancing interval, connected to the sqrt-of-interval scaling law',
+        'Transaction-cost breakeven frequency identifying where hedging more often destroys the volatility edge',
+        'Real-data study: 1,215 rolling one-month ATM SPY straddle episodes, 2020-2025, regressed against the realized variance risk premium'
+      ],
+      results: [
+        'Mean hedged PnL moved monotonically from <strong>+2.3 to -2.3</strong> currency units as realized vol moved from 10% to 30% against a 20% implied, exactly as the variance-risk theory predicts',
+        'On real SPY data, episode PnL regressed against the variance risk premium with slope <strong>36.4</strong>, R-squared <strong>0.42</strong>, p below 1e-140, across 1,215 episodes'
+      ],
+      stack: ['Python', 'NumPy', 'SciPy', 'pandas'],
+      link: 'https://github.com/ShubhamOzza/quant-delta-hedging-pnl-attribution',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="80" x2="320" y2="80" stroke="rgba(20,30,20,.1)" stroke-width="1"/>
+        <rect x="14" y="40" width="18" height="40" fill="#4E9973" opacity="0.7"/>
+        <rect x="14" y="80" width="18" height="34" fill="#B5432F" opacity="0.6"/>
+        <rect x="50" y="55" width="18" height="25" fill="#4E9973" opacity="0.7"/>
+        <rect x="50" y="80" width="18" height="22" fill="#B5432F" opacity="0.6"/>
+        <rect x="86" y="30" width="18" height="50" fill="#4E9973" opacity="0.7"/>
+        <rect x="86" y="80" width="18" height="46" fill="#B5432F" opacity="0.6"/>
+        <rect x="122" y="60" width="18" height="20" fill="#4E9973" opacity="0.7"/>
+        <rect x="122" y="80" width="18" height="18" fill="#B5432F" opacity="0.6"/>
+        <rect x="158" y="45" width="18" height="35" fill="#4E9973" opacity="0.7"/>
+        <rect x="158" y="80" width="18" height="32" fill="#B5432F" opacity="0.6"/>
+        <rect x="194" y="65" width="18" height="15" fill="#4E9973" opacity="0.7"/>
+        <rect x="194" y="80" width="18" height="14" fill="#B5432F" opacity="0.6"/>
+        <rect x="230" y="50" width="18" height="30" fill="#4E9973" opacity="0.7"/>
+        <rect x="230" y="80" width="18" height="28" fill="#B5432F" opacity="0.6"/>
+        <polyline points="23,80 59,80 95,80 131,80 167,80 203,80 239,80" fill="none" stroke="#1F5C3E" stroke-width="1.5" stroke-dasharray="2,2"/>
+        <circle cx="278" cy="78" r="4" fill="#1F5C3E"/>
+      </svg>`
     }
   ];
 
