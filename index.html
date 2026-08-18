@@ -1046,6 +1046,189 @@
         <polyline points="23,80 59,80 95,80 131,80 167,80 203,80 239,80" fill="none" stroke="#1F5C3E" stroke-width="1.5" stroke-dasharray="2,2"/>
         <circle cx="278" cy="78" r="4" fill="#1F5C3E"/>
       </svg>`
+    },
+    {
+      tag: 'Day Trading',
+      title: 'Risk-Profiled Asset Selection & Day-Trading Momentum Strategy',
+      desc: 'A quantitative analysis pulling live data for eight assets to answer two real questions: which asset fits which investor risk profile, and does a systematic top-2 momentum day-trading rule actually make money.',
+      problem: 'Investors with different risk appetites need different assets, and short-horizon trading rules need to be tested honestly against real data before anyone trusts them with real money, not dressed up to look better than they are.',
+      approach: 'Built a composite risk score from annualized volatility, market beta, and maximum drawdown to classify eight assets into Low/Medium/High risk tiers without subjective judgment calls, then implemented and backtested a day-trading rule: rank all eight assets daily by trailing 10-day average intraday return, buy the top two at the open with 50% of the portfolio in each, sell before the close.',
+      architecture: [
+        'Composite risk score from annualized volatility, SPY beta, and max drawdown, tercile-split into risk tiers',
+        'Trailing 10-day expected intraday return ranking, recomputed fresh each trading day',
+        'Top-2, 50/50 open-to-close day-trading simulation from a $1,000 starting balance',
+        'Full audit trail: raw OHLC data, day-by-day trading log, expected vs realized returns per pick',
+        'Explicit Sharpe ratio convention and risk-free rate assumption stated upfront'
+      ],
+      results: [
+        'Composite risk tiers picked <strong>SLV</strong> for steady low-risk growth, <strong>IREN</strong> for extreme risk tolerance, and <strong>GOOGL</strong> for a balanced investor',
+        "The day-trading strategy honestly lost money: $1,000 became <strong>$843.19</strong> (-15.68%) over Q4 2025, annualized Sharpe <strong>-1.69</strong>, reported as the finding rather than adjusted to look better"
+      ],
+      stack: ['Python', 'pandas', 'NumPy', 'yfinance'],
+      link: 'https://github.com/ShubhamOzza/ftec-risk-profiled-asset-selection-day-trading',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="140" x2="320" y2="140" stroke="rgba(20,30,20,.1)" stroke-width="1"/>
+        <line x1="20" y1="0" x2="20" y2="150" stroke="rgba(20,30,20,.1)" stroke-width="1"/>
+        <circle cx="55" cy="118" r="5" fill="#2B7A50" opacity="0.8"/>
+        <circle cx="75" cy="126" r="4" fill="#2B7A50" opacity="0.7"/>
+        <circle cx="45" cy="108" r="4.5" fill="#2B7A50" opacity="0.75"/>
+        <circle cx="150" cy="80" r="5" fill="#4E9973" opacity="0.75"/>
+        <circle cx="170" cy="70" r="4.5" fill="#4E9973" opacity="0.7"/>
+        <circle cx="140" cy="92" r="4" fill="#4E9973" opacity="0.65"/>
+        <circle cx="255" cy="30" r="6" fill="#B5432F" opacity="0.8"/>
+        <circle cx="275" cy="45" r="5" fill="#B5432F" opacity="0.7"/>
+        <circle cx="240" cy="20" r="5.5" fill="#B5432F" opacity="0.75"/>
+      </svg>`
+    },
+    {
+      tag: 'Technical',
+      title: 'Dual Moving Average Crossover Risk-Managed Backtest',
+      desc: 'A systematic 5-day and 9-day moving average crossover strategy on TQQQ and SQQQ, two 3x leveraged Nasdaq-100 ETFs, with explicit per-trade take-profit, stop-loss, and max-holding-period rules enforced lot by lot inside the simulation.',
+      problem: 'A crossover signal is easy to describe and easy to get wrong in execution: without next-day-open fills and genuinely enforced risk rules, a backtest can look far better than a strategy would actually perform live.',
+      approach: 'Simulated realistic trade execution (next-day open fills, $200 position sizing with a cash-availability fallback) with a 15% take profit, 8% stop loss, and 10-trading-day maximum holding period tracked on a lot-by-lot basis. Computed total 2025 return, monthly Sharpe ratio, expected monthly return, daily return volatility, and a bootstrap-based estimate of the probability of a monthly loss exceeding 10%.',
+      architecture: [
+        '5-day and 9-day SMA crossover signals on closing prices, TQQQ and SQQQ, full year 2025',
+        'Next-day open execution with $200 position sizing and a cash-availability fallback, avoiding look-ahead bias',
+        'Lot-level take-profit (+15%), stop-loss (-8%), and 10-day max-holding-period enforcement',
+        'Bootstrap resampling of daily returns to estimate the probability of a monthly loss beyond 10%',
+        'Full dataset export for one selected buy-signal instance, moving averages 3 days before and after'
+      ],
+      results: [
+        "2025 total return: <strong>-4.33%</strong>, driven largely by SQQQ's structural long-run decay as a leveraged short product, reported honestly rather than adjusted",
+        'Trade log confirms take-profit, stop-loss, and max-holding-period exits all actually triggered in the simulation, not just described in prose'
+      ],
+      stack: ['Python', 'pandas', 'NumPy', 'SciPy'],
+      link: 'https://github.com/ShubhamOzza/ftec-ma-crossover-risk-managed-backtest',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="80" x2="320" y2="80" stroke="rgba(20,30,20,.06)" stroke-width="1"/>
+        <polyline points="0,110 40,102 80,95 120,85 160,70 200,55 240,45 280,38 320,32" fill="none" stroke="#2B7A50" stroke-width="2.5" stroke-linejoin="round"/>
+        <polyline points="0,95 40,98 80,100 120,92 160,80 200,72 240,60 280,55 320,50" fill="none" stroke="rgba(181,67,47,.6)" stroke-width="2" stroke-dasharray="4,3"/>
+        <circle cx="150" cy="78" r="4" fill="#1F5C3E"/>
+      </svg>`
+    },
+    {
+      tag: 'ML Trading',
+      title: 'Cross-Asset Regime Features for a 10AM Trading Model',
+      desc: 'A five-feature model deciding, every trading day at 10:00 AM CST, whether to go long, short, or stay flat on QQQ through the market close, combining momentum, volatility, liquidity, technical, and cross-asset signals on real 5-minute data.',
+      problem: 'Free intraday data providers only serve roughly 60 trailing days of 5-minute history, so a model formula anchored to a specific past date can outrun the available data entirely, tempting a shortcut of fabricating numbers instead of demonstrating the pipeline honestly.',
+      approach: "Engineered five methodologically distinct features observable by 10:00 AM: opening-range momentum, opening-window realized volatility, relative morning volume, a 14-period RSI, and an original cross-asset feature that z-scores the VIX against its own trailing 20-day history. Fit a standardized linear regression to produce the model's predicted return and backtested a threshold-based, volatility-scaled trading rule out of sample against buy-and-hold, with the target date's data-availability constraint tested empirically and documented rather than papered over.",
+      architecture: [
+        'Five features from five different methodological families: momentum, realized volatility, volume, technical oscillator, cross-asset regime',
+        "Novel VIX regime z-score feature: today's 10am VIX level against its own trailing 20-day mean and standard deviation",
+        "Standardized linear regression producing Y-hat, the model's predicted 10am-to-close return",
+        'Threshold-based, volatility-scaled trading rule backtested out of sample against buy-and-hold',
+        'Empirically tested and honestly documented data-availability constraint, formulas written to be date-agnostic'
+      ],
+      results: [
+        "Confirmed via Yahoo Finance's own error message that 5-minute data for the assignment's target date falls outside the ~60-day free intraday window, and documented this rather than fabricating numbers for it",
+        'Out-of-sample demonstration on real recent data: strategy returned <strong>+1.73%</strong> versus <strong>-0.70%</strong> buy-and-hold over a 14-day test window, explicitly framed as a pipeline illustration, not a proven edge'
+      ],
+      stack: ['Python', 'pandas', 'scikit-learn', 'yfinance'],
+      link: 'https://github.com/ShubhamOzza/ftec-intraday-feature-engineering-trading-model',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="80" x2="320" y2="80" stroke="rgba(20,30,20,.1)" stroke-width="1"/>
+        <rect x="20" y="50" width="30" height="30" fill="#2B7A50" opacity="0.75"/>
+        <rect x="70" y="80" width="30" height="20" fill="#B5432F" opacity="0.55"/>
+        <rect x="120" y="35" width="30" height="45" fill="#2B7A50" opacity="0.8"/>
+        <rect x="170" y="80" width="30" height="12" fill="#B5432F" opacity="0.45"/>
+        <rect x="220" y="20" width="30" height="60" fill="#1F5C3E" opacity="0.85"/>
+        <text x="235" y="14" font-family="IBM Plex Mono,monospace" font-size="8" fill="rgba(20,30,20,.5)" text-anchor="middle">VIX</text>
+      </svg>`
+    },
+    {
+      tag: 'Asset Pricing',
+      title: "Jensen's Alpha: CAPM vs Fama-French Five-Factor",
+      desc: 'A test of whether a diversified 20-asset universe, spanning tech, financials, energy, healthcare, staples, industrials, utilities, REITs, and mutual funds, earns statistically significant risk-adjusted outperformance under two competing asset pricing models.',
+      problem: 'A single-factor alpha estimate can look significant purely because it is absorbing risk premia the model never controlled for. Whether an asset beats the market depends heavily on which factors you let it beat.',
+      approach: 'Downloaded five years of monthly adjusted prices and merged them with Fama-French five-factor data from the Ken French data library, ran a full exploratory analysis, then estimated both the CAPM market model and the Fama-French five-factor model for every asset via time-series regression, building a histogram of alpha t-ratios to see where, if anywhere, significant outperformance survives.',
+      architecture: [
+        'Five years of monthly data across 20 diversified assets, merged with Fama-French five-factor data',
+        'Exploratory analysis: descriptive statistics, histograms with fitted normal curves, boxplots, correlation heatmap',
+        'CAPM market-model and Fama-French five-factor time-series regressions for every asset',
+        'Alpha t-ratio histograms to visualize where significant outperformance appears under each model',
+        'Explicit count of assets significant at the 5% alpha level under each model'
+      ],
+      results: [
+        'Under CAPM, only the S&P 500 index fund in the sample showed a statistically significant positive alpha at 5%',
+        'That result fully disappeared under the Fama-French five-factor model; <strong>zero of 20</strong> assets showed significant risk-adjusted outperformance once size, value, profitability, and investment factors were controlled for'
+      ],
+      stack: ['R', 'quantmod', 'Fama-French data'],
+      link: 'https://github.com/ShubhamOzza/ftec-jensens-alpha-capm-fama-french',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="140" x2="320" y2="140" stroke="rgba(20,30,20,.1)" stroke-width="1"/>
+        <line x1="160" y1="10" x2="160" y2="150" stroke="rgba(20,30,20,.08)" stroke-width="1" stroke-dasharray="3,3"/>
+        <rect x="20" y="120" width="16" height="20" fill="rgba(20,30,20,.25)"/>
+        <rect x="44" y="110" width="16" height="30" fill="rgba(20,30,20,.25)"/>
+        <rect x="68" y="100" width="16" height="40" fill="rgba(20,30,20,.25)"/>
+        <rect x="92" y="90" width="16" height="50" fill="rgba(20,30,20,.25)"/>
+        <rect x="116" y="105" width="16" height="35" fill="rgba(20,30,20,.25)"/>
+        <rect x="140" y="115" width="16" height="25" fill="rgba(20,30,20,.25)"/>
+        <rect x="164" y="108" width="16" height="32" fill="rgba(20,30,20,.25)"/>
+        <rect x="188" y="118" width="16" height="22" fill="rgba(20,30,20,.25)"/>
+        <rect x="212" y="112" width="16" height="28" fill="rgba(20,30,20,.25)"/>
+        <rect x="260" y="25" width="18" height="115" fill="#2B7A50" opacity="0.85"/>
+        <text x="269" y="18" font-family="IBM Plex Mono,monospace" font-size="8" fill="#2B7A50" text-anchor="middle">VFIAX</text>
+      </svg>`
+    },
+    {
+      tag: 'Econometrics',
+      title: 'Market Model Diagnostics & Bootstrap Re-Estimation',
+      desc: 'A stress test of the CAPM market model on the same 20-asset universe: formal OLS assumption diagnostics, a bootstrap re-estimation to check estimate stability, and a Fama-French three-factor extension.',
+      problem: 'A regression coefficient is only as trustworthy as the assumptions behind it. Reporting an alpha and beta without checking heteroskedasticity, autocorrelation, and estimate stability is reporting a number without knowing if it is real.',
+      approach: "Estimated each company's alpha and beta, ran an ANOVA to evaluate goodness of fit, and formally diagnosed OLS assumptions using residual plots, a normal Q-Q plot, the Breusch-Pagan test, and the Durbin-Watson test. Validated the single-sample OLS estimates against a 10-iteration bootstrap resampling procedure, then extended to the Fama-French three-factor model with labeled alpha, beta, size, and value matrices.",
+      architecture: [
+        'Market-model alpha/beta estimation with labeled matrix output, plus ANOVA goodness-of-fit',
+        'Full OLS diagnostics: residual plots, normal Q-Q plot, Breusch-Pagan, Durbin-Watson',
+        '10-iteration bootstrap resampling to validate single-sample estimate stability',
+        'Fama-French three-factor extension with labeled alpha/beta/size/value coefficient matrices',
+        'Representative 5-stock subset for literal matrix deliverables, full 20-asset results computed throughout'
+      ],
+      results: [
+        'Homoskedasticity and no-autocorrelation both held at the 5% level for <strong>17 of 20</strong> assets; OLS assumptions largely supported across the universe',
+        'Bootstrap-averaged alphas and betas closely tracked the original OLS estimates, exactly the pattern expected from a correctly implemented resampling procedure'
+      ],
+      stack: ['R', 'lmtest', 'boot', 'quantmod'],
+      link: 'https://github.com/ShubhamOzza/ftec-market-model-diagnostics-bootstrap',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="80" x2="320" y2="80" stroke="rgba(20,30,20,.15)" stroke-width="1.5"/>
+        <circle cx="20" cy="70" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="45" cy="90" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="70" cy="65" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="95" cy="95" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="120" cy="75" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="145" cy="85" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="170" cy="68" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="195" cy="92" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="220" cy="72" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="245" cy="88" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="270" cy="78" r="4" fill="#2B7A50" opacity="0.6"/>
+        <circle cx="295" cy="82" r="4" fill="#2B7A50" opacity="0.6"/>
+      </svg>`
+    },
+    {
+      tag: 'Time Series',
+      title: 'Interest Rate & Homebuilder Stock Lead-Lag Analysis',
+      desc: 'An econometrics project testing whether the 10-year Treasury yield leads homebuilder equity prices, using ten years of monthly data and a full ARIMA and Granger causality pipeline.',
+      problem: 'Rising Treasury yields raise mortgage rates and should, in theory, depress homebuilder demand and equity prices with a lag. A plausible story is not the same as statistical evidence, and forcing a positive result when the data says otherwise is a common and dishonest failure mode.',
+      approach: 'Ran Augmented Dickey-Fuller stationarity tests, ACF/PACF diagnostics, ARIMA order selection via exhaustive AIC search, Ljung-Box residual diagnosis, bidirectional Granger causality testing, and an 80/20 time-ordered out-of-sample forecast evaluation with MSE and MAPE on ITB (homebuilders) versus the 10-year Treasury yield.',
+      architecture: [
+        'Augmented Dickey-Fuller stationarity testing on both series, properly differenced before modeling',
+        'ACF/PACF diagnostics and ARIMA order selection via exhaustive AIC search',
+        'Ljung-Box test confirming white-noise residuals on both fitted models',
+        'Bidirectional Granger causality testing at 1-3 month lags',
+        '80/20 time-ordered train/test split with MSE and MAPE out-of-sample forecast evaluation'
+      ],
+      results: [
+        'Both series were non-stationary in levels, properly differenced, and reduced to a random-walk ARIMA(0,1,0) with white-noise residuals confirmed by Ljung-Box',
+        'Granger causality tests found <strong>no statistically significant lead-lag relationship in either direction</strong> despite a clear economic rationale, reported as an honest null result rather than a forced narrative'
+      ],
+      stack: ['R', 'forecast', 'tseries', 'lmtest'],
+      link: 'https://github.com/ShubhamOzza/ftec-arima-granger-causality-analysis',
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
+        <line x1="0" y1="100" x2="320" y2="100" stroke="rgba(20,30,20,.06)" stroke-width="1"/>
+        <polyline points="0,120 40,110 80,95 120,70 160,50 200,60 240,45 280,38 320,42" fill="none" stroke="#2B7A50" stroke-width="2.5" stroke-linejoin="round"/>
+        <polyline points="0,90 40,85 80,95 120,105 160,100 200,95 240,110 280,105 320,100" fill="none" stroke="rgba(181,67,47,.6)" stroke-width="2" stroke-dasharray="4,3"/>
+      </svg>`
     }
   ];
 
