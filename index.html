@@ -149,12 +149,11 @@
   .pstack span:not(:last-child)::after{content:'/'; margin-left:5px; color:var(--line-strong);}
   .pcta{font-size:11px; color:var(--accent); font-family:'IBM Plex Mono',monospace; font-weight:500;}
 
-  .arrow{position:absolute; top:50%; transform:translateY(-50%); width:38px; height:38px; border-radius:50%; border:1px solid var(--line-strong); background:var(--panel); color:var(--text); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; z-index:5; transition:.15s; box-shadow:0 4px 12px rgba(20,40,25,.08);}
-  .arrow:hover{border-color:var(--accent); color:var(--accent);}
+  .arrow{position:absolute; top:50%; transform:translateY(-50%); width:38px; height:38px; border-radius:50%; border:none; background:transparent; color:var(--dim); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:20px; z-index:5; transition:.15s;}
+  .arrow:hover{color:var(--accent); background:rgba(31,92,62,.06);}
   .arrow.left{left:0;}
   .arrow.right{right:0;}
 
-  .note{margin-top:28px; padding:14px 16px; border:1px dashed var(--line-strong); border-radius:6px; font-size:11.5px; color:var(--faint); font-family:'IBM Plex Mono',monospace; line-height:1.6;}
 
   /* project detail modal: full-page case study */
   .project-modal{position:fixed; inset:0; z-index:200; background:var(--bg); opacity:0; visibility:hidden; transform:translateY(16px); transition:opacity .25s ease, transform .25s ease, visibility 0s linear .25s; overflow-y:auto;}
@@ -232,7 +231,7 @@
   <div class="wrap"><nav>
     <div class="brand">Shubham <b>Oza</b></div>
     <div class="navlinks" id="navLinks">
-      <a href="#experience">EXPERIENCE</a><a href="#projects">PROJECTS</a><a href="#background">BACKGROUND</a><a href="#education">EDUCATION</a><a href="#skills">SKILLS</a><a href="#contact">CONTACT</a>
+      <a href="#experience">EXPERIENCE</a><a href="#projects">PROJECTS</a><a href="#education">EDUCATION</a><a href="#background">BACKGROUND</a><a href="#skills">SKILLS</a><a href="#contact">CONTACT</a>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -413,32 +412,6 @@
         <div class="arrow right" id="nextBtn">›</div>
         <div class="car-track" id="track"></div>
       </div>
-      <div class="note">Have a new project or PDF to add? Drop the file in the repo root and add an entry to the <span class="mono">projects</span> array below; the card, thumbnail, and modal write-up are all generated from that one object.</div>
-    </div>
-  </section>
-
-  <!-- BACKGROUND -->
-  <section class="sec" id="background">
-    <div class="wrap">
-      <div class="sec-head"><div class="sec-eyebrow">Background</div><h2>About</h2></div>
-      <div class="about-text">
-        <p>I studied BCom in Accounting and Finance, then went straight into an MBA in Finance. That combination gave me a solid grounding in how financial systems actually work: trade lifecycles, derivatives, corporate actions, and the everyday plumbing behind capital markets.</p>
-        <p>My first job was at <strong>IBM</strong>, working with a UK-based investment bank on their risk and compliance team. I spent my days reading through high-risk client portfolios, building audit trails, and catching the small things in financial data that quietly turn into bigger problems if nobody notices them in time.</p>
-        <p>From there I moved to <strong>Capgemini</strong>, working in capital markets for a US investment bank. The focus was OTC derivatives: collateral management, ISDA agreements, and margin accounts. It's the messier side of derivatives operations, where getting the details right matters most.</p>
-        <p>Then I joined <strong>Landytech</strong>, a London-based fintech, first as a Data Analyst and later as an Associate handling client delivery. I got accurate portfolio and performance data out to institutional clients, reconciled AUM across more than a billion dollars in assets, validated returns, and managed ETL processes across equities, fixed income, hedge funds, private equity, and real estate.</p>
-        <p>I came to <strong>UT Dallas</strong> to close the gap between the operational work I'd been doing and the quantitative side I'd always wanted to go deeper on. Alongside coursework, I worked as a Graduate Student Assistant at the Naveen Jindal School of Management, and I'm now working as a Financial Data Engineer at <strong>Intellilake</strong> in New York, remote, building and optimizing financial data pipelines. The projects on this site are where the rest of that shift is heading.</p>
-      </div>
-      <div class="card" style="margin-top:24px;">
-        <div class="card-label">Focus Areas</div>
-        <div class="pill-row" style="margin-top:0;">
-          <span class="pill">Portfolio Analytics</span>
-          <span class="pill">Derivatives Risk</span>
-          <span class="pill">Factor Modeling</span>
-          <span class="pill">Time-Series Analysis</span>
-          <span class="pill">ETL Validation</span>
-          <span class="pill">Capital Markets</span>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -604,6 +577,31 @@
               <li>Complete Financial Analysis 2025, Udemy</li>
             </ul>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACKGROUND -->
+  <section class="sec" id="background">
+    <div class="wrap">
+      <div class="sec-head"><div class="sec-eyebrow">Background</div><h2>About</h2></div>
+      <div class="about-text">
+        <p>I studied BCom in Accounting and Finance, then went straight into an MBA in Finance. That combination gave me a solid grounding in how financial systems actually work: trade lifecycles, derivatives, corporate actions, and the everyday plumbing behind capital markets.</p>
+        <p>My first job was at <strong>IBM</strong>, working with a UK-based investment bank on their risk and compliance team. I spent my days reading through high-risk client portfolios, building audit trails, and catching the small things in financial data that quietly turn into bigger problems if nobody notices them in time.</p>
+        <p>From there I moved to <strong>Capgemini</strong>, working in capital markets for a US investment bank. The focus was OTC derivatives: collateral management, ISDA agreements, and margin accounts. It's the messier side of derivatives operations, where getting the details right matters most.</p>
+        <p>Then I joined <strong>Landytech</strong>, a London-based fintech, first as a Data Analyst and later as an Associate handling client delivery. I got accurate portfolio and performance data out to institutional clients, reconciled AUM across more than a billion dollars in assets, validated returns, and managed ETL processes across equities, fixed income, hedge funds, private equity, and real estate.</p>
+        <p>I came to <strong>UT Dallas</strong> to close the gap between the operational work I'd been doing and the quantitative side I'd always wanted to go deeper on. Alongside coursework, I worked as a Graduate Student Assistant at the Naveen Jindal School of Management, and I'm now working as a Financial Data Engineer at <strong>Intellilake</strong> in New York, remote, building and optimizing financial data pipelines. The projects on this site are where the rest of that shift is heading.</p>
+      </div>
+      <div class="card" style="margin-top:24px;">
+        <div class="card-label">Focus Areas</div>
+        <div class="pill-row" style="margin-top:0;">
+          <span class="pill">Portfolio Analytics</span>
+          <span class="pill">Derivatives Risk</span>
+          <span class="pill">Factor Modeling</span>
+          <span class="pill">Time-Series Analysis</span>
+          <span class="pill">ETL Validation</span>
+          <span class="pill">Capital Markets</span>
         </div>
       </div>
     </div>
