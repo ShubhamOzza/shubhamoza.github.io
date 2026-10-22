@@ -920,44 +920,12 @@
       </svg>`
     },
     {
-      tag: 'Risk',
-      title: 'Portfolio VaR & Expected Shortfall Backtester',
-      desc: 'A rolling, genuinely out-of-sample market risk pipeline that answers how much a portfolio can lose tomorrow, and how bad it gets when things go wrong, across five competing risk models with full regulatory-grade backtesting.',
-      problem: 'A VaR number without a backtest is an opinion. Risk models that look fine on average can still fail exactly when it matters: during a volatility spike, slow-moving covariance estimates understate tail risk right when a portfolio actually needs protection.',
-      approach: 'Built a rolling 500-day out-of-sample harness producing one-day-ahead VaR and Expected Shortfall at 95%, 97.5%, and 99% for a quarterly rebalanced equity portfolio across five models: Historical Simulation, parametric Normal, parametric Student-t (MLE-fitted degrees of freedom), EWMA covariance, and a 100,000-draw Monte Carlo Student-t engine. Layered on a full regulatory validation suite, eight historical-style stress scenarios, and automated correctness gates that refuse to report success unless ES is at least VaR everywhere and the portfolio accounting identity holds to machine precision.',
-      architecture: [
-        'Rolling 500-day out-of-sample VaR and ES at 95%, 97.5%, and 99%',
-        'Five models: Historical Simulation, parametric Normal, parametric Student-t, EWMA, Monte Carlo Student-t',
-        'Kupiec unconditional coverage and Christoffersen independence backtests',
-        'Basel traffic-light framework over rolling 250-day windows',
-        'Eight historical-style stress scenarios plus a dedicated crisis-regime failure analysis',
-        'Automated correctness gates: ES >= VaR everywhere, valid p-values, exact portfolio accounting identity'
-      ],
-      results: [
-        'The normal model understated 99% tail risk by nearly half; every model priced off a slow-moving 500-day covariance, including the fat-tailed specifications, produced clustered breaches in the crisis regime',
-        'Only the volatility-adaptive <strong>EWMA</strong> model avoided breach clustering, showing reaction speed mattered more than assuming fatter tails'
-      ],
-      stack: ['Python', 'pandas', 'NumPy', 'SciPy'],
-      link: 'https://github.com/ShubhamOzza/quant-portfolio-var-expected-shortfall',
-      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none">
-        <line x1="0" y1="140" x2="320" y2="140" stroke="rgba(20,30,20,.1)" stroke-width="1"/>
-        <rect x="10" y="120" width="14" height="20" fill="#4E9973" opacity="0.5"/>
-        <rect x="28" y="100" width="14" height="40" fill="#4E9973" opacity="0.55"/>
-        <rect x="46" y="76" width="14" height="64" fill="#4E9973" opacity="0.6"/>
-        <rect x="64" y="52" width="14" height="88" fill="#2B7A50" opacity="0.7"/>
-        <rect x="82" y="34" width="14" height="106" fill="#2B7A50" opacity="0.8"/>
-        <rect x="100" y="24" width="14" height="116" fill="#1F5C3E" opacity="0.9"/>
-        <rect x="118" y="30" width="14" height="110" fill="#2B7A50" opacity="0.8"/>
-        <rect x="136" y="48" width="14" height="92" fill="#2B7A50" opacity="0.7"/>
-        <rect x="154" y="70" width="14" height="70" fill="#4E9973" opacity="0.6"/>
-        <rect x="172" y="94" width="14" height="46" fill="#4E9973" opacity="0.5"/>
-        <line x1="205" y1="10" x2="205" y2="150" stroke="#B5432F" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <rect x="216" y="112" width="14" height="28" fill="#B5432F" opacity="0.55"/>
-        <rect x="234" y="118" width="14" height="22" fill="#B5432F" opacity="0.5"/>
-        <rect x="252" y="126" width="14" height="14" fill="#B5432F" opacity="0.45"/>
-        <rect x="270" y="132" width="14" height="8" fill="#B5432F" opacity="0.4"/>
-        <text x="205" y="8" font-family="IBM Plex Mono,monospace" font-size="8" fill="#B5432F" text-anchor="middle">VaR</text>
-      </svg>`
+      tag: "Replication",
+      title: "GARCH + EVT Value-at-Risk: Replicating McNeil & Frey (2000)",
+      desc: "Re-ran the paper's daily VaR backtest (four models refitted every day) on the S&P 500 from 1960 to 1993 and on dollar-sterling. Same verdict as the paper in 23 of 24 cells, then extended out of sample to 2026.",
+      stack: ["Python", "arch", "SciPy", "EVT"],
+      page: "projects/var-garch-evt-mcneil-frey-2000.html",
+      thumb: `<svg viewBox="0 0 320 160" preserveAspectRatio="none"><text x="160" y="16" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="rgba(20,30,20,.45)" text-anchor="middle">LOSSES vs 99% VaR</text><g fill="#9aa5b1"><rect x="20" y="120" width="3" height="10"/><rect x="30" y="112" width="3" height="18"/><rect x="40" y="118" width="3" height="12"/><rect x="50" y="60" width="3" height="70"/><rect x="60" y="98" width="3" height="32"/><rect x="70" y="105" width="3" height="25"/><rect x="80" y="114" width="3" height="16"/><rect x="90" y="118" width="3" height="12"/><rect x="100" y="121" width="3" height="9"/><rect x="110" y="119" width="3" height="11"/><rect x="120" y="122" width="3" height="8"/><rect x="130" y="116" width="3" height="14"/></g><polyline points="15,112 45,110 55,40 70,62 90,86 120,100 160,104 200,106 240,104 300,106" fill="none" stroke="#1F5C3E" stroke-width="2"/><line x1="15" y1="116" x2="300" y2="116" stroke="#B5432F" stroke-dasharray="4,3"/></svg>`
     },
     {
       tag: 'Factors',
